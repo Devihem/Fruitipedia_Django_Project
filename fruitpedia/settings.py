@@ -120,11 +120,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Taking project dir and making static folder
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'assets/'), # Collecting all static files
-    os.path.join(BASE_DIR, 'node_modules/'), # Added node_modules with yarn add bootstrap
-]
-
+STATICFILES_DIRS = ['assets/']
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
