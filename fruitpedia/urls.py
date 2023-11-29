@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from fruitpedia.fruits import views
+
 urlpatterns = [
+    path('', include('fruitpedia.fruits.urls')),
     path('admin/', admin.site.urls),
-    path('', include('fruitpedia.fruits.urls'))
+
+    path('create/category/', views.create_category, name='create-category'),
 ]

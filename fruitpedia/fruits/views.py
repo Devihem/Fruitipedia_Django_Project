@@ -1,4 +1,10 @@
-from django.shortcuts import render
+import contextlib
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+
+from fruitpedia.fruits.forms import CategoryModeForm, FruitModelForm
 
 from fruitpedia.fruits.models import Fruit
 
@@ -23,11 +29,27 @@ def create_fruits(request):
 
 
 def detail_fruit(request, fruit_pk):
-    return render(request, template_name='fruits/details-fruit.html')
+    fruit = get_object_or_404(Fruit, pk=fruit_pk)
+    context = {'fruit': fruit}
+    return render(request, 'fruits/details-fruit.html', context)
 
 
 def edit_fruit(request, fruit_pk):
-    return render(request, template_name='fruits/edit-fruit.html')
+    fruit = get_object_or_404(Fruit, pk=fruit_pk)
+
+    if request.method == 'POST':
+        form = FruitModelForm(request.POST, instance=fruit)
+        if form.is_valid():
+            form.save()
+
+        return redirect('create-category')
+
+    else:
+        form = FruitModelForm(instance=fruit)
+
+    context = {'form': form,
+               'fruit': fruit}
+    return render(request, 'fruits/edit-fruit.html', context)
 
 
 def delete_fruit(request, fruit_pk):
@@ -35,4 +57,26 @@ def delete_fruit(request, fruit_pk):
 
 
 def create_category(request):
-    return render(request, template_name='categories/create-category.html')
+    if request.method == 'POST':
+        form = CategoryModeForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+        return redirect('create-category')
+
+    else:
+        form = CategoryModeForm(request.GET)
+
+    form = CategoryModeForm()
+    context = {'form': form}
+    return render(request, 'categories/create-category.html', context)
+
+
+class FruitFormView(FormView):
+    form_class = FruitModelForm
+    template_name = 'fruits/create-fruit.html'
+    success_url = reverse_lazy('create-category')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
