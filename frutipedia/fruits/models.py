@@ -1,16 +1,6 @@
 from django.db import models
 from django.core.validators import *
-from django.core.exceptions import ValidationError
-
-
-# Custom validators:
-
-def only_alphabets(value):
-    if not value.isalpha():
-        raise ValidationError("Fruit name should contain only letters!")
-
-
-
+from frutipedia.fruits.validators import only_alphabets
 
 # Create your models here.
 
@@ -27,7 +17,7 @@ class Category(models.Model):
 class Fruit(models.Model):
     name = models.CharField(
         max_length=30,
-        validators=[MinLengthValidator(2), MaxLengthValidator(30), only_alphabets()])
+        validators=[MinLengthValidator(2), MaxLengthValidator(30), only_alphabets])
 
     image_url = models.URLField()
 
