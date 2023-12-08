@@ -66,25 +66,24 @@ def delete_fruit(request, fruit_pk):
 
 
 def create_category(request):
+    print(request)
     if request.method == 'POST':
         form = CategoryModeForm(request.POST)
         if form.is_valid():
             form.save()
-
-        return redirect('')
-
+            return redirect('dashboard')  # Replace 'success_page' with your actual success page
     else:
-        form = CategoryModeForm(request.GET)
+        form = CategoryModeForm()
 
-    form = CategoryModeForm()
     context = {'form': form}
     return render(request, 'categories/create-category.html', context)
+
 
 
 class FruitFormView(FormView):
     form_class = FruitModelForm
     template_name = 'fruits/create-fruit.html'
-    success_url = reverse_lazy('create-category')
+    success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.save()
