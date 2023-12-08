@@ -7,7 +7,7 @@
             <h2>Add Fruit</h2>
             <form class="create-form" method="POST">
                 {% csrf_token %}
-                {{ form }}
+                {{ form.as_div}}
                 <button type="submit">Add Fruit</button>
             </form>
         </div>

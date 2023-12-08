@@ -25,6 +25,7 @@ def dashboard(request):
 
 
 def create_fruits(request):
+    # Will redirect me back to here ,  class FruitFormView(FormView):
     return render(request, template_name='fruits/create-fruit.html')
 
 
