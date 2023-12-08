@@ -1,5 +1,7 @@
-
-<img width="100%"  alt="Project Logo" src="https://raw.githubusercontent.com/Devihem/Fruitipedia_Django_Project/master/assets/images/logo.png" />
+<p align="center">
+<img width="50%"  alt="Project Logo" src="https://raw.githubusercontent.com/Devihem/Fruitipedia_Django_Project/master/assets/images/logo.png" />
+</p>
+  
 ## Django Project - Workshop from SoftUni
 
 **This repository provides a Django project for a workshop on Python ORM at Software University. The project, named "fruitipedia" includes preset HTML pages and CSS files. The workshop tasks are detailed in this document, covering project setup, database models, routes, views, and template inheritance.**
