@@ -17,7 +17,7 @@ def index(request):
 
 
 def dashboard(request):
-    fruits = Fruit.objects.all()
+    fruits = Fruit.objects.all().order_by('name')
     context = {
         'fruits': fruits,
     }
@@ -70,7 +70,7 @@ def create_category(request):
         if form.is_valid():
             form.save()
 
-        return redirect('create-category')
+        return redirect('')
 
     else:
         form = CategoryModeForm(request.GET)
