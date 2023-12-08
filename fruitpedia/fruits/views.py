@@ -53,7 +53,15 @@ def edit_fruit(request, fruit_pk):
 
 
 def delete_fruit(request, fruit_pk):
-    return render(request, template_name='fruits/delete-fruit.html')
+    fruit = get_object_or_404(Fruit, pk=fruit_pk)
+    print(request)
+    if request.method == 'POST':
+        fruit.delete()
+
+        return redirect('dashboard')
+
+    context = {'fruit': fruit}
+    return render(request, 'fruits/delete-fruit.html', context)
 
 
 def create_category(request):
